@@ -74,43 +74,56 @@
     <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/11/05/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2021-11-05T10:26:42.151Z" itemprop="datePublished">2021-11-05</time>
+  <time class="dt-published" datetime="2021-11-05T11:45:18.487Z" itemprop="datePublished">2021-11-05</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="啦啦啦"><a href="#啦啦啦" class="headerlink" title="啦啦啦"></a>啦啦啦</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <p>作为一个强迫症患者，总是想让博客的源代码和部署在一个仓库（两个仓库总感觉很难受~）,更新代码就能自动构建部署。如果你也一样的话，可以参考下面的流程</p>
+<blockquote>
+<p>ps： 我在网上搜到的很多教程要搞私钥公钥啥的根本搞不定~~(我太菜了)</p>
+</blockquote>
+<p><code>master</code>分支为博客源代码，<code>gh-pages</code>分支为博客部署分支</p>
+<ul>
+<li>以下所有<code>&lt;username&gt;</code> 替换为你的 <strong>github用户名</strong></li>
+</ul>
+<h5 id="全局安装-hexo-cli-构建工具"><a href="#全局安装-hexo-cli-构建工具" class="headerlink" title="全局安装 hexo-cli 构建工具"></a>全局安装 <code>hexo-cli</code> 构建工具</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h5 id="初始化hexo仓库"><a href="#初始化hexo仓库" class="headerlink" title="初始化hexo仓库"></a>初始化hexo仓库</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx hexo init &lt;username&gt;.github.io</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h5 id="进入hexo仓库，本地运行这个博客-如果本地能访问到-说明你成功啦"><a href="#进入hexo仓库，本地运行这个博客-如果本地能访问到-说明你成功啦" class="headerlink" title="进入hexo仓库，本地运行这个博客,如果本地能访问到 说明你成功啦"></a>进入hexo仓库，本地运行这个博客,如果本地能访问到 说明你成功啦</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h5 id="github上创建一个仓库-仓库名设置为"><a href="#github上创建一个仓库-仓库名设置为" class="headerlink" title="github上创建一个仓库,仓库名设置为"></a>github上创建一个仓库,仓库名设置为</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;username&gt;.github.io</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h5 id="进入这个仓库，把这个仓库推到github上"><a href="#进入这个仓库，把这个仓库推到github上" class="headerlink" title="进入这个仓库，把这个仓库推到github上"></a>进入这个仓库，把这个仓库推到github上</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git git remote add origin https:<span class="comment">//github.com/&lt;username&gt;/&lt;username&gt;.github.io</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m init</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<h5 id="在-github-workflows-文件夹中新建pages-yml-文件、"><a href="#在-github-workflows-文件夹中新建pages-yml-文件、" class="headerlink" title="在.github/workflows 文件夹中新建pages.yml 文件、"></a>在<code>.github/workflows</code> 文件夹中新建<code>pages.yml</code> 文件、</h5><ul>
+<li><p><code>pages</code>就是总标题</p>
+</li>
+<li><p><code>name</code> 就是每一步的标题</p>
+</li>
+<li><p><code>$&#123;&#123;&#125;&#125;</code>表示从环境变量中读取</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/IuOfOI"><img src="https://z3.ax1x.com/2021/11/05/IuOfOI.png" alt="IuOfOI.png"></a></p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">name: Pages</span><br><span class="line"></span><br><span class="line"><span class="attr">on</span>:</span><br><span class="line">  push:</span><br><span class="line">    branches:</span><br><span class="line">      - master  # 监听master分支的push 如果触发就执行action</span><br><span class="line"></span><br><span class="line"><span class="attr">jobs</span>:</span><br><span class="line">  pages: # 总标题</span><br><span class="line">    runs-on: ubuntu-latest # 启动的虚拟机的系统</span><br><span class="line">    <span class="attr">steps</span>: # action步骤</span><br><span class="line">      - uses: actions/checkout@v2 # 拉取当前master分支代码</span><br><span class="line">      </span><br><span class="line">      - name: Use Node.js <span class="number">12.</span>x # 下面uses这一步的标题</span><br><span class="line">        <span class="attr">uses</span>: actions/setup-node@v1 # 执行的命令 设置安装node</span><br><span class="line">        <span class="attr">with</span>:</span><br><span class="line">          node-version: <span class="string">&#x27;12.x&#x27;</span> # 设置node版本为<span class="number">12.</span>x</span><br><span class="line">          </span><br><span class="line">      - name: Cache NPM dependencies</span><br><span class="line">        <span class="attr">uses</span>: actions/cache@v2 # 执行的命令 读取npm缓存</span><br><span class="line">        <span class="attr">with</span>:</span><br><span class="line">          path: node_modules</span><br><span class="line">          <span class="attr">key</span>: $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span><br><span class="line">          restore-keys: |</span><br><span class="line">            $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span><br><span class="line"></span><br><span class="line">      - name: Install Dependencies</span><br><span class="line">        <span class="attr">run</span>: npm install # 执行的命令 npm install 相信各位经常使用</span><br><span class="line">        </span><br><span class="line">      - name: Build</span><br><span class="line">        <span class="attr">run</span>: npm run build # 不用说了吧</span><br><span class="line">        </span><br><span class="line">      - name: Deploy</span><br><span class="line">        <span class="attr">uses</span>: peaceiris/actions-gh-pages@v3 # 用的是第三方的actions</span><br><span class="line">        <span class="attr">with</span>:</span><br><span class="line">          github_token: $&#123;&#123; secrets.GITHUB_TOKEN &#125;&#125; # 从环境变量中获取的githubtoken</span><br><span class="line">          <span class="attr">publish_dir</span>: ./public # 从哪个文件夹中取文件</span><br><span class="line">          <span class="attr">publish_branch</span>: gh-pages  # 要部署到哪个个分支 branch</span><br></pre></td></tr></table></figure>
+
+<h5 id="编辑-config-yml-文件"><a href="#编辑-config-yml-文件" class="headerlink" title="编辑_config.yml  文件"></a>编辑<code>_config.yml</code>  文件</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  <span class="attr">repo</span>: https:<span class="comment">//github.com/&lt;username&gt;/&lt;username&gt;.github.io</span></span><br><span class="line">  branch: gh-pages</span><br></pre></td></tr></table></figure>
+
+<h5 id="在仓库的Settings-选项中将默认构建分支改为gh-pages"><a href="#在仓库的Settings-选项中将默认构建分支改为gh-pages" class="headerlink" title="在仓库的Settings 选项中将默认构建分支改为gh-pages"></a>在仓库的<code>Settings</code> 选项中将默认构建分支改为<code>gh-pages</code></h5><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/IuXBcj"><img src="https://z3.ax1x.com/2021/11/05/IuXBcj.md.png" alt="IuXBcj.md.png"></a></p>
+<ul>
+<li>现在访问<code>&lt;username&gt;.github.io</code>就应该看到你的博客啦，如果404的话，就在博客随便改个内容再次触发构建</li>
+</ul>
+<p>完美，强迫症患者舒服了。如果你也舒服了，请点个赞吧~</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/05/hello-world/" data-id="ckvm8gp83000090n5fgd5dj9q" data-title="Hello World" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/05/hello-world/" data-id="ckvmb9svk00009fn514lw5ykb" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -153,7 +166,7 @@
       <ul>
         
           <li>
-            <a href="/2021/11/05/hello-world/">Hello World</a>
+            <a href="/2021/11/05/hello-world/">(no title)</a>
           </li>
         
       </ul>
