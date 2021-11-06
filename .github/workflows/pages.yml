@@ -5,15 +5,29 @@ on:
     branches:
       - master  # default branch
 
+env:
+  THEME_REPO: leoshenhh/hexo-theme-next
+  THEME_BRANCH: master
+
 jobs:
   pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Checkout theme repo
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ env.THEME_REPO }}
+          ref: ${{ env.THEME_BRANCH }}
+          path: themes/next
+
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
       - name: Cache NPM dependencies
         uses: actions/cache@v2
         with:
@@ -21,13 +35,13 @@ jobs:
           key: ${{ runner.OS }}-npm-cache
           restore-keys: |
             ${{ runner.OS }}-npm-cache
+
       - name: Install Dependencies
-        run: |
-        git clone https://github.com/iissnan/hexo-theme-next themes/next
-        npm install
+        run: npm install
 
       - name: Build
         run: npm run build
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
