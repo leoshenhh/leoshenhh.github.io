@@ -24,7 +24,7 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-          git clone https://github.com/iissnan/hexo-theme-next themes/next
+          git clone --depth=10 https://github.com/iissnan/hexo-theme-next themes/next
       - name: Build
         run: npm run build
       - name: Deploy
