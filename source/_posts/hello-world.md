@@ -2,37 +2,38 @@
 
 > ps： 我在网上搜到的很多教程要搞私钥公钥啥的根本搞不定~~(我太菜了)
 
-`master`分支为博客源代码，`gh-pages`分支为博客部署分支
+ + git仓库的`master`分支为博客源代码，`gh-pages`分支为博客部署分支
 
-+ 以下所有`<username>` 替换为你的 **github用户名**
+ + 以下所有`<username>` 替换为你的 **github用户名**
 
+<!-- more -->
 ##### 全局安装 `hexo-cli` 构建工具
 
-```js
+```bash
 npm install -g hexo-cli
 ```
 
 ##### 初始化hexo仓库
 
-```js
+```bash
 npx hexo init <username>.github.io
 ```
 
 ##### 进入hexo仓库，本地运行这个博客,如果本地能访问到 说明你成功啦
 
-```js
+```bash
 hexo server
 ```
 
 ##### github上创建一个仓库,仓库名设置为
 
-```js
+```
 <username>.github.io
 ```
 
 ##### 进入这个仓库，把这个仓库推到github上
 
-```js
+```bash
 git init
 git git remote add origin https://github.com/<username>/<username>.github.io
 git add .
@@ -50,7 +51,7 @@ git push -u origin master
 
   [![IuOfOI.png](https://z3.ax1x.com/2021/11/05/IuOfOI.png)](https://imgtu.com/i/IuOfOI)
 
-```js
+```yaml
 name: Pages
 
 on:
@@ -93,7 +94,7 @@ jobs:
 
 ##### 编辑`_config.yml`  文件
 
-```js
+```yaml
 deploy:
   type: git
   repo: https://github.com/<username>/<username>.github.io
