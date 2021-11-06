@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title></title>
+    <url>/2021/11/06/hello-world/</url>
+    <content><![CDATA[<p>作为一个强迫症患者，总是想让博客的源代码和部署在一个仓库（两个仓库总感觉很难受~）,更新代码就能自动构建部署。如果你也一样的话，可以参考下面的流程</p>
+<blockquote>
+<p>ps： 我在网上搜到的很多教程要搞私钥公钥啥的根本搞不定~~(我太菜了)</p>
+</blockquote>
+<ul>
+<li><p>git仓库的<code>master</code>分支为博客源代码，<code>gh-pages</code>分支为博客部署分支</p>
+</li>
+<li><p>以下所有<code>&lt;username&gt;</code> 替换为你的 <strong>github用户名</strong></p>
+</li>
+</ul>
+<span id="more"></span>
+<h5 id="全局安装-hexo-cli-构建工具"><a href="#全局安装-hexo-cli-构建工具" class="headerlink" title="全局安装 hexo-cli 构建工具"></a>全局安装 <code>hexo-cli</code> 构建工具</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<h5 id="初始化hexo仓库"><a href="#初始化hexo仓库" class="headerlink" title="初始化hexo仓库"></a>初始化hexo仓库</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx hexo init &lt;username&gt;.github.io</span><br></pre></td></tr></table></figure>
+
+<h5 id="进入hexo仓库，本地运行这个博客-如果本地能访问到-说明你成功啦"><a href="#进入hexo仓库，本地运行这个博客-如果本地能访问到-说明你成功啦" class="headerlink" title="进入hexo仓库，本地运行这个博客,如果本地能访问到 说明你成功啦"></a>进入hexo仓库，本地运行这个博客,如果本地能访问到 说明你成功啦</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h5 id="github上创建一个仓库-仓库名设置为"><a href="#github上创建一个仓库-仓库名设置为" class="headerlink" title="github上创建一个仓库,仓库名设置为"></a>github上创建一个仓库,仓库名设置为</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;username&gt;.github.io</span><br></pre></td></tr></table></figure>
+
+<h5 id="进入这个仓库，把这个仓库推到github上"><a href="#进入这个仓库，把这个仓库推到github上" class="headerlink" title="进入这个仓库，把这个仓库推到github上"></a>进入这个仓库，把这个仓库推到github上</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git git remote add origin https://github.com/&lt;username&gt;/&lt;username&gt;.github.io</span><br><span class="line">git add .</span><br><span class="line">git commit -m init</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<h5 id="在-github-workflows-文件夹中新建pages-yml-文件、"><a href="#在-github-workflows-文件夹中新建pages-yml-文件、" class="headerlink" title="在.github/workflows 文件夹中新建pages.yml 文件、"></a>在<code>.github/workflows</code> 文件夹中新建<code>pages.yml</code> 文件、</h5><ul>
+<li><p><code>pages</code>就是总标题</p>
+</li>
+<li><p><code>name</code> 就是每一步的标题</p>
+</li>
+<li><p><code>$&#123;&#123;&#125;&#125;</code>表示从环境变量中读取</p>
+<p><a href="https://imgtu.com/i/IuOfOI"><img src="https://z3.ax1x.com/2021/11/05/IuOfOI.png" alt="IuOfOI.png"></a></p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span>  <span class="comment"># 监听master分支的push 如果触发就执行action</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="comment"># 总标题</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span> <span class="comment"># 启动的虚拟机的系统</span></span><br><span class="line">    <span class="attr">steps:</span> <span class="comment"># action步骤</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span> <span class="comment"># 拉取当前master分支代码</span></span><br><span class="line">      </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Use</span> <span class="string">Node.js</span> <span class="number">12.</span><span class="string">x</span> <span class="comment"># 下面uses这一步的标题</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span> <span class="comment"># 执行的命令 设置安装node</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;12.x&#x27;</span> <span class="comment"># 设置node版本为12.x</span></span><br><span class="line">          </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v2</span> <span class="comment"># 执行的命令 读取npm缓存</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.OS</span> <span class="string">&#125;&#125;-npm-cache</span></span><br><span class="line">          <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="comment"># 执行的命令 npm install 相信各位经常使用</span></span><br><span class="line">        </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span> <span class="comment"># 不用说了吧</span></span><br><span class="line">        </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span> <span class="comment"># 用的是第三方的actions</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span> <span class="comment"># 从环境变量中获取的githubtoken</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span> <span class="comment"># 从哪个文件夹中取文件</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">gh-pages</span>  <span class="comment"># 要部署到哪个个分支 branch</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="编辑-config-yml-文件"><a href="#编辑-config-yml-文件" class="headerlink" title="编辑_config.yml  文件"></a>编辑<code>_config.yml</code>  文件</h5><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/&lt;username&gt;/&lt;username&gt;.github.io</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">gh-pages</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="在仓库的Settings-选项中将默认构建分支改为gh-pages"><a href="#在仓库的Settings-选项中将默认构建分支改为gh-pages" class="headerlink" title="在仓库的Settings 选项中将默认构建分支改为gh-pages"></a>在仓库的<code>Settings</code> 选项中将默认构建分支改为<code>gh-pages</code></h5><p><a href="https://imgtu.com/i/IuXBcj"><img src="https://z3.ax1x.com/2021/11/05/IuXBcj.md.png" alt="IuXBcj.md.png"></a></p>
+<ul>
+<li>现在访问<code>&lt;username&gt;.github.io</code>就应该看到你的博客啦，如果404的话，就在博客随便改个内容再次触发构建</li>
+</ul>
+<p>完美，强迫症患者舒服了。如果你也舒服了，请点个赞吧~</p>
+]]></content>
+  </entry>
+</search>
