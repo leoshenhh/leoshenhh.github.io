@@ -22,9 +22,7 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
-        run: |
-          npm install
-          git clone --depth=10 https://github.com/iissnan/hexo-theme-next themes/next
+        run: npm install
       - name: Build
         run: npm run build
       - name: Deploy
