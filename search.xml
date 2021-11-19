@@ -1,8 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>express-api</title>
+    <url>/2021/11/08/express-api/</url>
+    <content><![CDATA[<h2 id="express"><a href="#express" class="headerlink" title="express()"></a>express()</h2><p>创建一个express应用</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line">app.listen(<span class="number">8888</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="express-json"><a href="#express-json" class="headerlink" title="express.json()"></a>express.json()</h3><p>监听 <code>request.on(&#39;data&#39;)</code> ,如果请求的 <code>Content-Type</code> 为  <code>application/json </code> 则将结果( <code>chunk</code> )解析为<code>json</code>对象，放入 <code>request.body</code>  里</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.use(express.json())</span><br><span class="line">app.use(<span class="function">(<span class="params">request,response,next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(request.body)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>若不使用express.json()中间件,则获取 <strong>请求体</strong> 的方法为</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.use(<span class="function">(<span class="params">request,response,next</span>) =&gt;</span> &#123;</span><br><span class="line">    request.on(<span class="string">&#x27;data&#x27;</span>,<span class="function">(<span class="params">chunk</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(chunk.toString())</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="express-static-root"><a href="#express-static-root" class="headerlink" title="express.static(root)"></a>express.static(root)</h3><p>指定<code>root</code>文件夹（目录名自定义，一般为<code>public</code>）为提供静态资源的根目录</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.use(express.static(<span class="string">&#x27;public&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>在<code>public</code>目录下新建<code>index.html</code>这个文件，并请求</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$.get(<span class="string">&#x27;localhost:8888/index.html&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果<code>public</code> 文件夹有请求的文件，则返回该文件，没有则执行<code>next()</code>进入下一个中间件</p>
+<h3 id="express-row"><a href="#express-row" class="headerlink" title="express.row()"></a>express.row()</h3><p>监听 <code>request.on(&#39;data&#39;)</code> ,如果请求的 <code>Content-Type</code> 为  <code>application/octet-stream </code> 则将结果( <code>chunk</code> )解析为<code>buffer</code>，放入 <code>request.body</code>  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.use(express.row())</span><br></pre></td></tr></table></figure>
+
+<h3 id="express-text"><a href="#express-text" class="headerlink" title="express.text()"></a>express.text()</h3><p>监听 <code>request.on(&#39;data&#39;)</code> ,如果请求的 <code>Content-Type</code> 为  <code>text/plain </code> 则将结果( <code>chunk</code> )解析为<code>string</code>，放入 <code>request.body</code>  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.use(express.text())</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="express-urlencoded"><a href="#express-urlencoded" class="headerlink" title="express.urlencoded()"></a>express.urlencoded()</h3><p>监听 <code>request.on(&#39;data&#39;)</code> ,如果请求的 <code>Content-Type</code> 为  <code>application/x-www-form-urlencoded</code> 则将结果( <code>chunk</code> )解析为<strong>对象</strong>，放入 <code>request.body</code>  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.use(express.urlencoded())</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="app-set"><a href="#app-set" class="headerlink" title="app.set()"></a>app.set()</h2><p>设置一个任意<code>value</code>，可以通过<code>name</code>来获取到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.set(&#x27;name&#x27;,&#x27;shen&#x27;)</span><br><span class="line">app.get(&#x27;name&#x27;) // shen</span><br></pre></td></tr></table></figure>
+
+<p>可以设置以下特殊值：</p>
+<ul>
+<li><code>case sensitive routing</code>    设置对请求路径大小写敏感</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.set(<span class="string">&#x27;case sensitive routing&#x27;</span>,<span class="literal">false</span>) <span class="comment">// 一般放在第一个中间件之前</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>views</code></li>
+</ul>
+<p>设置视图文件夹 , 用于<code>res.render()</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.set(<span class="string">&#x27;views&#x27;</span>,<span class="string">&#x27;xxx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>view engine</code></li>
+</ul>
+<p>设置视图渲染引擎(需要安装该第三库)</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.set(<span class="string">&#x27;view engine&#x27;</span>, <span class="string">&#x27;pug&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="app-get"><a href="#app-get" class="headerlink" title="app.get()"></a>app.get()</h3><ul>
+<li>如果参数是一个字符串<code>name</code>则获取<code>app.set(name)</code>的值</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;name&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果参数是路径和回调函数<code>(path,callback)</code>,则响应<code>get</code>请求,执行<code>callbakc</code>中间件</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/xxx&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>app.post()</code> 、<code>app.put()</code> 、<code>app.delete</code> 等用法同<code>app.get()</code></li>
+</ul>
+<h3 id="app-all"><a href="#app-all" class="headerlink" title="app.all()"></a>app.all()</h3><p>无论是什么请求都响应</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.all(<span class="string">&#x27;/xxx&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="app-render"><a href="#app-render" class="headerlink" title="app.render()"></a>app.render()</h3><p>如果设置了<code>views</code>和<code>view engine</code> ，则去<code>views</code>设置的目录寻找该文件，并使用设置的<code>view engine</code>解析</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.render(<span class="string">&#x27;xxx&#x27;</span>, &#123; <span class="attr">name</span>: <span class="string">&#x27;Tobi&#x27;</span> &#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以传入变量<code>&#123; name: &#39;Tobi&#39; &#125;</code>供引擎模板使用</li>
+</ul>
+<h3 id="app-locals"><a href="#app-locals" class="headerlink" title="app.locals"></a>app.locals</h3><p>设置<code>app</code>局部变量</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.locals.title = <span class="string">&#x27;啦啦啦&#x27;</span></span><br><span class="line">app.get(<span class="string">&#x27;/xxx&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.app.local.title)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="req-app"><a href="#req-app" class="headerlink" title="req.app"></a>req.app</h3><p>把<code>express</code>的实例挂在了<code>req</code>,在中间件中可以通过<code>req</code>来访问<code>app</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// mymiddleware.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">req, res,next</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(req.app.local.title)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="req-params"><a href="#req-params" class="headerlink" title="req.params"></a>req.params</h3><p>获取路径传参的参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/users/:id&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(req.params)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 请求 &#x27;/users/1&#x27; 打印出: &#123;id: 1&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="req-query"><a href="#req-query" class="headerlink" title="req.query"></a>req.query</h3><p>获取查询参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/users&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.query)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 请求 &#x27;/users?name=shen&amp;id=1&#x27; 打印出 &#123; name: shen,id: 1 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="req-xhr"><a href="#req-xhr" class="headerlink" title="req.xhr"></a>req.xhr</h3><p>用来区分<code>ajax</code>请求，还是普通请求</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/xxx&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.xhr) <span class="comment">// 如果是true 则为 ajax 请求</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="req-get"><a href="#req-get" class="headerlink" title="req.get()"></a>req.get()</h3><p>获取请求头的值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/xxx&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.get(<span class="string">&#x27;Content-Type&#x27;</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="req-param"><a href="#req-param" class="headerlink" title="req.param()"></a>req.param()</h3><p>根据属性名获取 <strong>查询参数/路径传参</strong> 的值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/xxx&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.param(<span class="string">&#x27;name&#x27;</span>))</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 请求 &#x27;/users?name=shen&amp;id=1&#x27; 打印出 shen</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="res-append"><a href="#res-append" class="headerlink" title="res.append()"></a>res.append()</h3><p>设置一个响应头 （只能一个一个添加）</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">res.append(<span class="string">&#x27;Set-Cookie&#x27;</span>, <span class="string">&#x27;foo=bar; Path=/; HttpOnly&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="res-set"><a href="#res-set" class="headerlink" title="res.set()"></a>res.set()</h3><p>设置响应头（可以添加对象）</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">res.set(&#123;</span><br><span class="line">  <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;text/plain&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;Content-Length&#x27;</span>: <span class="string">&#x27;123&#x27;</span>,</span><br><span class="line">  <span class="attr">ETag</span>: <span class="string">&#x27;12345&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="res-status"><a href="#res-status" class="headerlink" title="res.status()"></a>res.status()</h3><p>设置响应状态码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">res.status(<span class="number">404</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="res-format"><a href="#res-format" class="headerlink" title="res.format()"></a>res.format()</h3><p>根据请求头的<code>Accept</code>格式，返回不同的内容</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">res.format(&#123;</span><br><span class="line">  <span class="string">&#x27;text/plain&#x27;</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">// 如果请求头的Accept 为 &#x27;text/plain&#x27;</span></span><br><span class="line">    res.send(<span class="string">&#x27;hey&#x27;</span>) </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="string">&#x27;text/html&#x27;</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">// 如果请求头的Accept 为 &#x27;text/html&#x27;</span></span><br><span class="line">    res.send(<span class="string">&#x27;&lt;p&gt;hey&lt;/p&gt;&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="string">&#x27;application/json&#x27;</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">// 如果请求头的Accept 为 &#x27;application/json&#x27;</span></span><br><span class="line">    res.send(&#123; <span class="attr">message</span>: <span class="string">&#x27;hey&#x27;</span> &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">default</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">// 如果请求头的Accept 不为以上任意一个</span></span><br><span class="line">    <span class="comment">// log the request and respond with 406</span></span><br><span class="line">    res.status(<span class="number">406</span>).send(<span class="string">&#x27;Not Acceptable&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="res-get"><a href="#res-get" class="headerlink" title="res.get()"></a>res.get()</h3><p>获取请求头</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">res.get(<span class="string">&#x27;Content-Type&#x27;</span>)</span><br><span class="line"><span class="comment">// =&gt; &quot;text/plain&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="router-get"><a href="#router-get" class="headerlink" title="router.get()"></a>router.get()</h3><p><code>router</code> 可以看成一个小型的<code>app</code>,只有路由功能</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> app = express.router()</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    res.send(<span class="string">&#x27;/users&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">&#x27;/:id&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    res.send(<span class="string">&#x27;/users/:id&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">&#x27;/:id/edit&#x27;</span>,<span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    res.send(<span class="string">&#x27;/users/:id/edit&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>把上面的<code>router</code> 挂载到<code>app</code>,实现子路由</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> usersRouter = <span class="built_in">require</span>(<span class="string">&#x27;./usersRouter&#x27;</span>)</span><br><span class="line">app.use(<span class="string">&#x27;/users&#x27;</span>,usersRputer)</span><br></pre></td></tr></table></figure>
+
+<h3 id="express-generator"><a href="#express-generator" class="headerlink" title="express-generator"></a>express-generator</h3><p>使用<code>express-generator</code>生成默认<code>express</code>项目</p>
+<ul>
+<li>下载<code>express-generator</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g express-generator</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看帮助</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">express --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>生成一个 以<code>ejs</code>为模板引擎，<code>demo</code>为项目名的 <code>express</code>项目</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">express --view=ejs demo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>下载依赖并运行</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> demo</span><br><span class="line">npm install</span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
     <title></title>
-    <url>/2021/11/06/hello-world/</url>
+    <url>/2021/11/19/hexoGithubCI/</url>
     <content><![CDATA[<p>作为一个强迫症患者，总是想让博客的源代码和部署在一个仓库（两个仓库总感觉很难受~）,更新代码就能自动构建部署。如果你也一样的话，可以参考下面的流程</p>
 <blockquote>
 <p>ps： 我在网上搜到的很多教程要搞私钥公钥啥的根本搞不定~~(我太菜了)</p>
