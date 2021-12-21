@@ -231,8 +231,8 @@
 ]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/2021/12/21/hexoGithubCI/</url>
+    <title>hexoGithubCi</title>
+    <url>/2021/11/19/hexoGithubCI/</url>
     <content><![CDATA[<p>作为一个强迫症患者，总是想让博客的源代码和部署在一个仓库（两个仓库总感觉很难受~）,更新代码就能自动构建部署。如果你也一样的话，可以参考下面的流程</p>
 <blockquote>
 <p>ps： 我在网上搜到的很多教程要搞私钥公钥啥的根本搞不定~~(我太菜了)</p>
