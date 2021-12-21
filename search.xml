@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>cypress</title>
+    <url>/2021/11/20/cypress/</url>
+    <content><![CDATA[<h3 id="安装cypress"><a href="#安装cypress" class="headerlink" title="安装cypress"></a>安装cypress</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn add --dev cypress</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="打开cypress"><a href="#打开cypress" class="headerlink" title="打开cypress"></a>打开cypress</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./node_modules/.bin/cypress open</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="运行cypress"><a href="#运行cypress" class="headerlink" title="运行cypress"></a>运行cypress</h3><ul>
+<li>可以通过点击GUI界面的<code>spec</code>运行</li>
+<li>可以通过命令行运行</li>
+<li><code>--headed</code>  为展示测试过程</li>
+<li><code>--spec</code> 后接测试用例 <code>js</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./node_modules/.bin/cypress run --spec cypress\integration\examples\actions.spec.js --headed</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="忽略测试用例"><a href="#忽略测试用例" class="headerlink" title="忽略测试用例"></a>忽略测试用例</h3><p><code>cypress.json</code> 中添加以下代码，忽略这些测试用例</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">       <span class="attr">&quot;ignoreTestFiles&quot;</span>: [<span class="string">&quot;*.hot-update.js&quot;</span>.<span class="string">&quot;**/examples/*.*&quot;</span>]</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="写一个测试用例"><a href="#写一个测试用例" class="headerlink" title="写一个测试用例"></a>写一个测试用例</h3><p>在<code>integration</code>文件夹下，新建一个<code>.spec.js</code>后缀的文件</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">describe(<span class="string">&#x27;百度&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    it(<span class="string">&#x27;能搜索&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        cy.visit(<span class="string">&#x27;https://baidu.com&#x27;</span>)</span><br><span class="line">        cy.get(<span class="string">&#x27;input#kw&#x27;</span>).type(<span class="string">&#x27;腾讯&#x27;</span>)</span><br><span class="line">        cy.contains(<span class="string">&#x27;百度一下&#x27;</span>).click()</span><br><span class="line">        cy.contains(<span class="string">&#x27;腾讯首页&#x27;</span>).should(<span class="string">&#x27;exist&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>describe</code> 为整个测试用例 第一个参数<code>title</code>为用例标题，第二个参数为箭头函数</li>
+<li><code>it</code>为测试用例的其中一步,第一个参数为<code>title</code>为步骤标题，第二个参数为箭头函数</li>
+<li><code>cy.visit</code> ：访问一个<code>URL</code></li>
+<li><code>cy.get</code> ：获取<code>dom</code>元素</li>
+<li><code>cy.type</code>: 输入文字</li>
+<li><code>cy.contains</code>: 获取包含 <em>百度一下</em> 的 <code>dom</code> 元素</li>
+<li><code>cy.click()</code>: 点击一个<code>dom</code>元素</li>
+<li><code>cy.should(&#39;exist&#39;)</code>: <code>dom</code>元素应该存在</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>docker</title>
+    <url>/2021/11/26/docker/</url>
+    <content><![CDATA[<h3 id="docker-命令"><a href="#docker-命令" class="headerlink" title="docker 命令"></a>docker 命令</h3><ul>
+<li><code>docker run</code></li>
+</ul>
+<p>运行一个<code>docker</code>实例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>docker ps</code></li>
+</ul>
+<p>列出所有正在运行的<code>docker</code>实例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>docker kill</code></li>
+</ul>
+<p>关掉一个正在运行的<code>docker</code>容器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">kill</span> 4607082</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>docker rm hello-world</code></li>
+</ul>
+<p>删除一个<code>docker</code>镜像</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker rm hello-world</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker-安装-mysql"><a href="#docker-安装-mysql" class="headerlink" title="docker  安装 mysql"></a>docker  安装 mysql</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --name -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7.27</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>--name</code> 后面接 <code>mysql</code>名字（自定义）</p>
+</li>
+<li><p><code>-e</code> 为设置环境变量</p>
+</li>
+<li><p><code>MYSQL_ROOT_PASSWORD</code> 后面接 <code>ROOT</code> 用户的密码</p>
+</li>
+<li><p><code>-d</code> 为开启守护进程</p>
+</li>
+<li><p><code>mysql:</code> 后面接<code>mysql</code> 版本</p>
+</li>
+</ul>
+<h3 id="docker-安装-postgres"><a href="#docker-安装-postgres" class="headerlink" title="docker 安装 postgres"></a>docker 安装 postgres</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --name some-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数参考上面<code>mysql</code></li>
+<li><code>-p</code> 后跟 主机端口<code>:</code>容器端口</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>express-api</title>
     <url>/2021/11/08/express-api/</url>
     <content><![CDATA[<h2 id="express"><a href="#express" class="headerlink" title="express()"></a>express()</h2><p>创建一个express应用</p>
@@ -144,7 +232,7 @@
   </entry>
   <entry>
     <title></title>
-    <url>/2021/11/19/hexoGithubCI/</url>
+    <url>/2021/12/21/hexoGithubCI/</url>
     <content><![CDATA[<p>作为一个强迫症患者，总是想让博客的源代码和部署在一个仓库（两个仓库总感觉很难受~）,更新代码就能自动构建部署。如果你也一样的话，可以参考下面的流程</p>
 <blockquote>
 <p>ps： 我在网上搜到的很多教程要搞私钥公钥啥的根本搞不定~~(我太菜了)</p>
@@ -184,6 +272,48 @@
 <li>现在访问<code>&lt;username&gt;.github.io</code>就应该看到你的博客啦，如果404的话，就在博客随便改个内容再次触发构建</li>
 </ul>
 <p>完美，强迫症患者舒服了。如果你也舒服了，请点个赞吧~~</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>koa-api</title>
+    <url>/2021/11/19/koa-api/</url>
+    <content><![CDATA[<h3 id="koa安装"><a href="#koa安装" class="headerlink" title="koa安装"></a>koa安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn add koa // 安装koa</span><br><span class="line">yarn add --dev @types/koa // 安装 k oa TS提示</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装TS"><a href="#安装TS" class="headerlink" title="安装TS"></a>安装TS</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install typescript -g </span><br></pre></td></tr></table></figure>
+
+<h3 id="安装运行TS工具"><a href="#安装运行TS工具" class="headerlink" title="安装运行TS工具"></a>安装运行TS工具</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i ts-node-dev -g</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="TS初始化"><a href="#TS初始化" class="headerlink" title="TS初始化"></a>TS初始化</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tsc --init</span><br></pre></td></tr></table></figure>
+
+<h3 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ./server.ts</span></span><br><span class="line"><span class="keyword">import</span> Koa <span class="keyword">from</span> <span class="string">&#x27;koa&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span>(ctx) =&gt;&#123;</span><br><span class="line">    ctx.body = <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ts-node-dev server.ts</span><br></pre></td></tr></table></figure>
+
+<h3 id="app-use"><a href="#app-use" class="headerlink" title="app.use()"></a>app.use()</h3><p>使用中间件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(ctx)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="app-on"><a href="#app-on" class="headerlink" title="app.on()"></a>app.on()</h3><p>监听某个事件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.on(<span class="string">&#x27;error&#x27;</span>, <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">  log.error(<span class="string">&#x27;server error&#x27;</span>, err)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="request-idempotent"><a href="#request-idempotent" class="headerlink" title="request.idempotent"></a>request.idempotent</h3><p>检查请求是否是幂等的。</p>
+<blockquote>
+<p>幂等: 任意多次执行所产生的影响均与一次执行的影响相同</p>
+</blockquote>
+<p>在<code>http</code> 请求中 <code>get</code>是幂等的 <code>post</code>、<code>put</code>等不幂等</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>nextjs</title>
+    <url>/2021/12/03/nextjs/</url>
+    <content><![CDATA[<h3 id="创建nextjs项目"><a href="#创建nextjs项目" class="headerlink" title="创建nextjs项目"></a>创建nextjs项目</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm init next-app next-demo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>next-app</code> 接项目名</li>
+</ul>
+<h3 id="安装react提示"><a href="#安装react提示" class="headerlink" title="安装react提示"></a>安装react提示</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn add --dev @types/react @types/react-dom</span><br></pre></td></tr></table></figure>
+
 ]]></content>
   </entry>
 </search>
